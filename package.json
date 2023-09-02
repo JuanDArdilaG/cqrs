@@ -1,6 +1,6 @@
 {
   "name": "@juandardilag/cqrs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Command Query Responsibility Segregation implementation in TypeScript",
   "main": "dist/index.js",
   "scripts": {
