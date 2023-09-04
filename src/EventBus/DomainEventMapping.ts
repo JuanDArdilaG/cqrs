@@ -1,5 +1,5 @@
 import { DomainEventClass, DomainEvent } from "@juandardilag/ddd-domain-layer";
-import { DomainEventSubscriber } from "../DomainEventSubscriber";
+import { DomainEventSubscriber } from "./DomainEventSubscriber";
 
 type Mapping = Map<string, DomainEventClass>;
 

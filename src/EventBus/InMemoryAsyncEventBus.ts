@@ -1,5 +1,5 @@
 import { DomainEvent } from "@juandardilag/ddd-domain-layer";
-import { DomainEventSubscriber } from "../DomainEventSubscriber";
+import { DomainEventSubscriber } from "./DomainEventSubscriber";
 import { EventBus } from "../EventBus";
 import { EventEmitterBus } from "./EventEmitterBus";
 

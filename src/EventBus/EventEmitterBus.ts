@@ -1,6 +1,6 @@
 import { DomainEvent } from "@juandardilag/ddd-domain-layer";
 import { EventEmitter } from "events";
-import { DomainEventSubscriber } from "../DomainEventSubscriber";
+import { DomainEventSubscriber } from "./DomainEventSubscriber";
 
 export class EventEmitterBus extends EventEmitter {
   constructor(subscribers: Array<DomainEventSubscriber<DomainEvent>>) {

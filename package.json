@@ -1,8 +1,9 @@
 {
   "name": "@juandardilag/cqrs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Command Query Responsibility Segregation implementation in TypeScript",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "pre-pub": "cti create -n ./src && npx rimraf dist/ && tsc",
