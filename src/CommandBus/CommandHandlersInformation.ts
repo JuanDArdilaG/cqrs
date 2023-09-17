@@ -3,7 +3,7 @@ import { CommandHandler } from "./CommandHandler";
 import { CommandNotRegisteredError } from "./CommandNotRegisteredError";
 
 export class CommandHandlersInformation {
-  private commandHandlersMap: Map<Command, CommandHandler<Command>>;
+  private commandHandlersMap: Map<Function, CommandHandler<Command>>;
 
   constructor(commandHandlers: Array<CommandHandler<Command>>) {
     this.commandHandlersMap = this.formatHandlers(commandHandlers);
@@ -11,7 +11,7 @@ export class CommandHandlersInformation {
 
   private formatHandlers(
     commandHandlers: Array<CommandHandler<Command>>
-  ): Map<Command, CommandHandler<Command>> {
+  ): Map<Function, CommandHandler<Command>> {
     const handlersMap = new Map();
 
     commandHandlers.forEach((commandHandler) => {
