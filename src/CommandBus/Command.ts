@@ -1,3 +1,1 @@
-export abstract class Command {
-  abstract fromBodyRequest(req: Body): Command;
-}
+export abstract class Command {}
