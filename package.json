@@ -7,7 +7,7 @@
   "scripts": {
     "tsc": "tsc",
     "pre-pub": "cti create -n ./src && npx rimraf dist/ && tsc",
-    "pub": "npm i && git add -A && git commit --amend --no-edit && npm run pre-pub && npm publish --access public"
+    "pub": "npm i && git add -A && git commit --amend --no-edit && npm run pre-pub && npm publish --access public && git push"
   },
   "keywords": [],
   "author": "",
