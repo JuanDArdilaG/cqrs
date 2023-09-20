@@ -1,17 +1,21 @@
 import { Command } from "./Command";
 import { CommandHandler } from "./CommandHandler";
 import { CommandNotRegisteredError } from "./CommandNotRegisteredError";
+import { CommandUseCase } from "./CommandUseCase";
 
 export class CommandHandlersInformation {
-  private commandHandlersMap: Map<Function, CommandHandler<Command>>;
+  private commandHandlersMap: Map<
+    Function,
+    CommandHandler<CommandUseCase<Command>>
+  >;
 
-  constructor(commandHandlers: Array<CommandHandler<Command>>) {
+  constructor(commandHandlers: Array<CommandHandler<CommandUseCase<Command>>>) {
     this.commandHandlersMap = this.formatHandlers(commandHandlers);
   }
 
   private formatHandlers(
-    commandHandlers: Array<CommandHandler<Command>>
-  ): Map<Function, CommandHandler<Command>> {
+    commandHandlers: Array<CommandHandler<CommandUseCase<Command>>>
+  ): Map<Function, CommandHandler<CommandUseCase<Command>>> {
     const handlersMap = new Map();
 
     commandHandlers.forEach((commandHandler) => {
@@ -21,7 +25,7 @@ export class CommandHandlersInformation {
     return handlersMap;
   }
 
-  public search(command: Command): CommandHandler<Command> {
+  public search(command: Command): CommandHandler<CommandUseCase<Command>> {
     const commandHandler = this.commandHandlersMap.get(command.constructor);
 
     if (!commandHandler) {

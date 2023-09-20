@@ -1,6 +1,6 @@
 // created from 'create-ts-index'
 
-export * from './CommandBus';
-export * from './EventBus';
-export * from './QueryBus';
-export * from './Response';
+export * from "./CommandBus";
+export * from "../../ddd-domain-layer/src/EventBus";
+export * from "./QueryBus";
+export * from "./Response";
