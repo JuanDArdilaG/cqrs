@@ -1,0 +1,18 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "./",
+  "modulePaths": ["<rootDir>"],
+  "testEnvironment": "node",
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "testRegex": "./__tests__/.*\\.spec\\.ts$",
+  "testPathIgnorePatterns": ["/node_modules", "/dist"],
+  "collectCoverageFrom": ["src/**/*.(t|j)s"],
+  "coveragePathIgnorePatterns": ["/node_modules", "/dist"],
+  "coverageDirectory": "./coverage/unit",
+  "coverageReporters": ["lcov", "text", "text-summary"],
+  "coverageThreshold": {
+    "global": 80
+  }
+}

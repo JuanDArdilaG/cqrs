@@ -5,8 +5,8 @@ import { QueryNotRegisteredError } from "./QueryNotRegisteredError";
 import { QueryUseCase } from "./QueryUseCase";
 
 export class QueryHandlersInformation {
-  private queryHandlersMap: Map<
-    Query,
+  readonly queryHandlersMap: Map<
+    string,
     QueryHandler<QueryUseCase<Query, Response>>
   >;
 
@@ -16,20 +16,27 @@ export class QueryHandlersInformation {
     this.queryHandlersMap = this.formatHandlers(queryHandlers);
   }
 
+  register(
+    query: Query,
+    handler: QueryHandler<QueryUseCase<Query, Response>>
+  ): void {
+    this.queryHandlersMap.set(query.name(), handler);
+  }
+
   private formatHandlers(
     queryHandlers: Array<QueryHandler<QueryUseCase<Query, Response>>>
-  ): Map<Query, QueryHandler<QueryUseCase<Query, Response>>> {
+  ): Map<string, QueryHandler<QueryUseCase<Query, Response>>> {
     const handlersMap = new Map();
 
     queryHandlers.forEach((queryHandler) => {
-      handlersMap.set(queryHandler.subscribedTo(), queryHandler);
+      handlersMap.set(queryHandler.subscribedTo().name(), queryHandler);
     });
 
     return handlersMap;
   }
 
   public search(query: Query): QueryHandler<QueryUseCase<Query, Response>> {
-    const queryHandler = this.queryHandlersMap.get(query.constructor);
+    const queryHandler = this.queryHandlersMap.get(query.name());
 
     if (!queryHandler) {
       throw new QueryNotRegisteredError(query);

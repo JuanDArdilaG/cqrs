@@ -1,1 +1,3 @@
-export abstract class Query {}
+export abstract class Query {
+  abstract name(): string;
+}
