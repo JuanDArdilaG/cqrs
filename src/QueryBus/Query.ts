@@ -1,3 +1,5 @@
 export abstract class Query {
-  abstract name(): string;
+  name(): string {
+    return this.constructor.name;
+  }
 }
