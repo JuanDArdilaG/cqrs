@@ -20,7 +20,7 @@ export class QueryHandlersInformation {
     query: Query,
     handler: QueryHandler<QueryUseCase<Query, Response>>
   ): void {
-    this.queryHandlersMap.set(query.name(), handler);
+    this.queryHandlersMap.set(query.name, handler);
   }
 
   private formatHandlers(
@@ -29,14 +29,14 @@ export class QueryHandlersInformation {
     const handlersMap = new Map();
 
     queryHandlers.forEach((queryHandler) => {
-      handlersMap.set(queryHandler.subscribedTo().name(), queryHandler);
+      handlersMap.set(queryHandler.subscribedTo().name, queryHandler);
     });
 
     return handlersMap;
   }
 
   public search(query: Query): QueryHandler<QueryUseCase<Query, Response>> {
-    const queryHandler = this.queryHandlersMap.get(query.name());
+    const queryHandler = this.queryHandlersMap.get(query.name);
 
     if (!queryHandler) {
       throw new QueryNotRegisteredError(query);

@@ -5,12 +5,10 @@ import { Response } from "../../src/Response";
 import { QueryHandlersInformation } from "../../src/QueryBus/QueryHandlersInformation";
 
 class TQuery<T> extends Query {
+  name: string;
   constructor(readonly example: T) {
     super();
-  }
-
-  name(): string {
-    return "TQuery" + "-" + typeof this.example;
+    this.name = "TQuery" + "-" + typeof this.example;
   }
 }
 
