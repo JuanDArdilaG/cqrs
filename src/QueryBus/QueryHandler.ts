@@ -2,12 +2,13 @@ import { Query } from "./Query";
 import { Response } from "../Response";
 import { QueryUseCase } from "./QueryUseCase";
 
-export abstract class QueryHandler<T extends QueryUseCase<Query, Response>> {
-  constructor(private _useCase: T) {}
+export abstract class QueryHandler<
+  Q extends Query,
+  T extends QueryUseCase<Q, Response>
+> {
+  constructor(readonly useCase: T) {}
 
-  abstract subscribedTo(): Query;
-
-  async handle(query: Query): Promise<Response> {
-    return this._useCase.execute(query);
+  async handle(query: Q): Promise<Response> {
+    return this.useCase.execute(query);
   }
 }

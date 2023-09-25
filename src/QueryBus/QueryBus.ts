@@ -4,9 +4,8 @@ import { QueryHandler } from "./QueryHandler";
 import { QueryUseCase } from "./QueryUseCase";
 
 export interface QueryBus {
-  register(
-    query: Query,
-    handler: QueryHandler<QueryUseCase<Query, Response>>
+  register<Q extends Query>(
+    handler: QueryHandler<Q, QueryUseCase<Q, Response>>
   ): void;
   ask<R extends Response>(query?: Query): Promise<R>;
 }

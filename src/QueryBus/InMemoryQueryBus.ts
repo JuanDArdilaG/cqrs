@@ -8,15 +8,12 @@ import { QueryUseCase } from "./QueryUseCase";
 export class InMemoryQueryBus implements QueryBus {
   constructor(private queryHandlersInformation: QueryHandlersInformation) {}
 
-  register(
-    query: Query,
-    handler: QueryHandler<QueryUseCase<Query, Response>>
-  ): void {
-    this.queryHandlersInformation.register(query, handler);
+  register(handler: QueryHandler<Query, QueryUseCase<Query, Response>>): void {
+    this.queryHandlersInformation.register(handler);
   }
 
   async ask<R extends Response>(query: Query): Promise<R> {
-    const handler = this.queryHandlersInformation.search(query);
+    const handler = this.queryHandlersInformation.search(query.getName());
 
     return handler.handle(query) as Promise<R>;
   }

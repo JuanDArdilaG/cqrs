@@ -4,27 +4,32 @@ import { QueryUseCase } from "../../src/QueryBus/QueryUseCase";
 import { Response } from "../../src/Response";
 import { QueryHandlersInformation } from "../../src/QueryBus/QueryHandlersInformation";
 
-class TQuery<T> extends Query {
+class TQuery extends Query {
   name: string;
-  constructor(readonly example: T) {
+  constructor(name: string) {
     super();
-    this.name = "TQuery" + "-" + typeof this.example;
+    this.name = "TQuery-" + name;
+  }
+
+  getName(): string {
+    return this.name;
   }
 }
 
-class TQueryUseCase<T> extends QueryUseCase<TQuery<T>, Response> {
-  execute(_: TQuery<T>): Promise<Response> {
+class TQueryUseCase<_> extends QueryUseCase<TQuery, Response> {
+  execute(_: TQuery): Promise<Response> {
     throw new Error("Method not implemented.");
   }
 }
 
-class TQueryHandler<T> extends QueryHandler<QueryUseCase<Query, Response>> {
-  constructor(private readonly example: T) {
-    super(new TQueryUseCase<T>());
+class TQueryHandler<T> extends QueryHandler<
+  Query,
+  QueryUseCase<Query, Response>
+> {
+  constructor(example: TQuery) {
+    super(new TQueryUseCase<T>(example));
   }
-  subscribedTo(): Query {
-    return new TQuery<T>(this.example);
-  }
+
   handle(_: Query): Promise<Response> {
     throw new Error("Method not implemented.");
   }
@@ -32,17 +37,17 @@ class TQueryHandler<T> extends QueryHandler<QueryUseCase<Query, Response>> {
 
 describe("QueryHandlersInformation", () => {
   it("should be able to register a generic query handler", () => {
-    const stringQueryHandler = new TQueryHandler<string>("");
-    const numberQueryHandler = new TQueryHandler<number>(0);
+    const stringQueryHandler = new TQueryHandler<string>(new TQuery("string"));
+    const numberQueryHandler = new TQueryHandler<number>(new TQuery("number"));
 
     const queryHandlersInformation = new QueryHandlersInformation([
       stringQueryHandler,
       numberQueryHandler,
     ]);
 
-    console.log(queryHandlersInformation.queryHandlersMap);
+    console.log(queryHandlersInformation.queryHandlers);
 
     expect(queryHandlersInformation).toBeDefined();
-    expect(queryHandlersInformation.queryHandlersMap.size).toBe(2);
+    expect(queryHandlersInformation.queryHandlers).toHaveLength(2);
   });
 });
