@@ -4,29 +4,16 @@ import { CommandNotRegisteredError } from "./CommandNotRegisteredError";
 import { CommandUseCase } from "./CommandUseCase";
 
 export class CommandHandlersInformation {
-  private commandHandlersMap: Map<
-    Function,
-    CommandHandler<CommandUseCase<Command>>
-  >;
+  private commandHandlers: Array<CommandHandler<CommandUseCase<Command>>>;
 
   constructor(commandHandlers: Array<CommandHandler<CommandUseCase<Command>>>) {
-    this.commandHandlersMap = this.formatHandlers(commandHandlers);
+    this.commandHandlers = commandHandlers;
   }
 
-  private formatHandlers(
-    commandHandlers: Array<CommandHandler<CommandUseCase<Command>>>
-  ): Map<Function, CommandHandler<CommandUseCase<Command>>> {
-    const handlersMap = new Map();
-
-    commandHandlers.forEach((commandHandler) => {
-      handlersMap.set(commandHandler.subscribedTo(), commandHandler);
+  public search(command: string): CommandHandler<CommandUseCase<Command>> {
+    const commandHandler = this.commandHandlers.find((commandHandler) => {
+      return commandHandler.useCase.getName() === command;
     });
-
-    return handlersMap;
-  }
-
-  public search(command: Command): CommandHandler<CommandUseCase<Command>> {
-    const commandHandler = this.commandHandlersMap.get(command.constructor);
 
     if (!commandHandler) {
       throw new CommandNotRegisteredError(command);
